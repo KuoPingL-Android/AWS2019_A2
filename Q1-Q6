@@ -1,2 +1,105 @@
-Q1 What is Inheritance ? Try to explain in Mandarin.
-繼承的定義在
+Q1 
+What is Inheritance ? Try to explain in Mandarin.
+
+A1 
+繼承，是一個物件導向的概念。
+當類別 B 繼承了類別 A 時，類別 B 就能擁有和類別 A 相同的屬性和方法。
+而 B 就被稱為 A 的子類別，A 就稱為 B 的父類別。
+B 可以對 A 的方法重新定義，而 A 無法知道有 B 這個類別。
+
+==========================================================================================
+Q2 
+How to split a string in Android?
+Explain your understanding, and even better to attach some sample code.
+
+A2 :
+In Android, a String is a Class that adapts CharSequence Interface.
+A CharSequence has an extended function called split, which takes in a String, delimiters and returns a List of String (List<String>). 
+
+From my understanding, Android would try to 
+	1. find the delimiters within the String.
+	2. Then append the List by the substring of the characters before the delimiter.
+	3. Go back to step 1 with the remaining substring
+
+
+Sample Code (Psudo-code) using only 1 delimiter :
+"Stritrnintrnig".split("tr") = [S, i, nin, nig]
+
+fun String.split(delimiter: String) : List<String> {
+ var indexFound = 0
+ var remainingSubString = this
+ var subStrings = mutableListOf<String>()
+
+ indexFound = search(this, delimiter)
+ while (indexFound != -1) {
+  // Append the List
+  subStrings.add(subString(remainingSubString, indexFound)
+ 
+  remainingSubString = remainingSubString.subSequence(indexFound, remainingSubString.lenght - 1)
+
+  // Keep searching 
+  indexFound = search(delimiter, remainingSubString)
+  
+ }
+ subStrings.add(remainingSubString)
+ return subStrings.asList()
+}
+
+
+
+==========================================================================================
+Q3 
+What kind of key-value pair collection we use in Android? 
+Attach a sample code that use for-loop to print each key-value pair.
+
+A3 
+We use Dictionary or Map and MutableMap.
+
+Sample Code :
+
+val kvP = mapOf("key1" to 1, "key2" to 2, "key3" to 3, "key4" to 1)
+
+for((k,v) in kvP) {
+     Log.d("KEY-VALUE", "[$k-$v]")
+}
+
+==========================================================================================
+Q4 
+What’s the difference between ArrayList and LinkedList? Try to explain in Mandarin
+
+A4
+ArrayList(動態陣列) 和 LinkedList(連結串列) 主要的差別在於儲存方式。
+ArrayList 是由陣列方式儲存，能佔用連續的記憶體，而且能快速讀取和串改。
+但是當我們要新增或是移除的時候，若儲存的記憶體有所中斷，其他的記憶體位置都必須一個一個地要移動，讓記憶體的連續性不中斷。
+而
+LinkedList 是由連結串列組成，每個節點能夠知道雙向的鄰居的記憶位置。
+因為 LinkedList 不會佔用連續的記憶體，因此每次的讀取都的由串列的頭或尾端開始尋找，也就比較花費時間。
+但是，因為 LinkedList 中節點是由指標連接，所以當我要移除或是新增的時候，我可以簡單地更換指標位置即可。
+
+總結，ArrayList 因為佔用記憶的連續性，所以容易 Get/Set，但也因為如此，移除/新增就很不利。
+而 LinkedList 則相反。使用指標連接節點的性質讓它能快速的移除/新增。但是 Get/Set 就極為花時了。
+
+
+==========================================================================================
+Q5 
+What are Value Type variables? List out the Value Type variables you know.
+
+A5
+Value Type variables are variables that passes their values by Value instead of by Reference.
+
+This means if I have a value type variable 'a' and I also stated that b = a, c = a, d = a, all b ~ d only holds the value that is equal to 'a'.
+
+If I have a reference type variable 'a' and I also stated that b = a, c = a, d = a, all b ~ d are holding a memory location that is pointed to the same memory location of 'a'.
+
+
+Examples of Value type variables would be the Primitive types (Byte, Short, Int, Long, Float, Double), Boolean and Char.
+
+
+==========================================================================================
+Q6 
+What’s the maximum value of Int ? If you want to represent integers larger than the limit,what should you do instead of using int variables?
+
+A6
+The maximum of Int is 2,147,483,647.
+If you wish to use larger numbers, then you can choose Long or Kotlin.UInt and Kotlin.ULong if all values are positive.
+
